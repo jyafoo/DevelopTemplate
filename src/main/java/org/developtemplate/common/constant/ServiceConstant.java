@@ -11,5 +11,5 @@ public interface ServiceConstant {
     /**
      * 盐值，混淆密码
      */
-    String SALT = "jyafoo";
+    String SALT = "QWERTYUIPLKJHGFDASZXCVBNM1234567890";
 }

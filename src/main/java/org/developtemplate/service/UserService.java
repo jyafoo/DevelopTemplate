@@ -38,6 +38,13 @@ public interface UserService extends IService<UserDO> {
     Boolean checkUsername(String username);
 
     /**
+     * 根据用户id获取用户名
+     * @param id 用户id
+     * @return 用户名
+     */
+    String getUserNameById(Long id);
+
+    /**
      * 查询用户信息
      * @param username 用户名
      * @return 用户信息响应参数

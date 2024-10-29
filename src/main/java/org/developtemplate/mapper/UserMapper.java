@@ -1,6 +1,7 @@
 package org.developtemplate.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 import org.developtemplate.domain.entity.UserDO;
 
 
@@ -10,6 +11,7 @@ import org.developtemplate.domain.entity.UserDO;
  * @version 1.0
  * @since 2024/7/2
  */
+@Mapper
 public interface UserMapper extends BaseMapper<UserDO> {
 
 }

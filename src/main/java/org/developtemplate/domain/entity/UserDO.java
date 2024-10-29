@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
+import lombok.*;
 import org.developtemplate.domain.base.BaseDO;
 
 
@@ -17,8 +17,12 @@ import java.io.Serializable;
  * @version 1.0
  * @since 2024/7/2
  */
-@TableName(value ="user")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
+@TableName(value ="user")
 public class UserDO extends BaseDO implements Serializable {
     /**
      * id
@@ -29,43 +33,32 @@ public class UserDO extends BaseDO implements Serializable {
     /**
      * 账号
      */
+    @TableField(value = "user_account")
     private String userAccount;
 
     /**
      * 密码
      */
+    @TableField(value = "user_password")
     private String userPassword;
 
     /**
      * 用户昵称
      */
+    @TableField(value = "user_name")
     private String userName;
 
     /**
      * 用户头像
      */
+    @TableField(value = "user_avatar")
     private String userAvatar;
 
     /**
      * 用户角色：user/admin
      */
+    @TableField(value = "user_role")
     private String userRole;
-
-    // /**
-    //  * 创建时间
-    //  */
-    // private Date createTime;
-    //
-    // /**
-    //  * 更新时间
-    //  */
-    // private Date updateTime;
-    //
-    // /**
-    //  * 是否删除
-    //  */
-    // @TableLogic
-    // private Integer isDelete;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

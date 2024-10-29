@@ -1,18 +1,15 @@
 package org.developtemplate.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.UUID;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
-import org.developtemplate.common.biz.UserContext;
 import org.developtemplate.common.convention.errorcode.BaseErrorCode;
 import org.developtemplate.common.convention.exception.ClientException;
 import org.developtemplate.common.convention.exception.ServiceException;
@@ -35,7 +32,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import static org.developtemplate.common.constant.RedisCacheConstant.LOCK_USER_REGISTER_KEY;
@@ -53,7 +49,7 @@ import static org.developtemplate.common.enums.UserErrorCodeEnum.*;
  * @version 1.0
  * @since 2024/7/2
  */
-@Service
+@Service("userServiceImpl")
 @Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements UserService {
@@ -128,7 +124,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         LambdaQueryWrapper<UserDO> queryWrapper = Wrappers.lambdaQuery(UserDO.class)
                 .eq(UserDO::getUserAccount, userAccount)
                 .eq(UserDO::getUserPassword, encryptPassword)
-                .eq(UserDO::getIsDelete, 0);
+                .eq(UserDO::getDeleted, 0);
         UserDO userDO = baseMapper.selectOne(queryWrapper);
         if (userDO == null) {
             throw new ClientException(USER_NULL);
@@ -164,10 +160,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     }
 
     @Override
+    public String getUserNameById(Long id) {
+        return "";
+    }
+
+    @Override
     public UserInfoResponseDTO getUserByUsername(String username) {
         LambdaQueryWrapper<UserDO> queryWrapper = Wrappers.lambdaQuery(UserDO.class)
                 .eq(UserDO::getUserAccount, username)
-                .eq(UserDO::getIsDelete, 0);
+                .eq(UserDO::getDeleted, 0);
         UserDO userDO = baseMapper.selectOne(queryWrapper);
         if (userDO == null) {
             throw new ServiceException(UserErrorCodeEnum.USER_NULL);
