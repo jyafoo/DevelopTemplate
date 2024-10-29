@@ -3,8 +3,10 @@ package org.developtemplate.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.developtemplate.common.annotation.SystemEventLog;
 import org.developtemplate.common.convention.result.Result;
 import org.developtemplate.common.convention.result.Results;
+import org.developtemplate.common.enums.SystemLogTypeEnum;
 import org.developtemplate.domain.dto.request.UserLoginRequestDTO;
 import org.developtemplate.domain.dto.request.UserRegisterRequestDTO;
 import org.developtemplate.domain.dto.request.UserUpdateRequestDTO;
@@ -53,6 +55,7 @@ public class UserController {
      *
      * @param userLoginRequestDTO 用户登录请求参数
      */
+    @SystemEventLog(SystemLogTypeEnum.DEFAULT)
     @PostMapping("/login")
     public Result<UserLoginResponseDTO> loginUser(@RequestBody UserLoginRequestDTO userLoginRequestDTO){
         return Results.success(userService.loginUser(userLoginRequestDTO));
@@ -71,6 +74,7 @@ public class UserController {
      * 修改用户
      * @param requestParam 用户更新请求参数
      */
+    @SystemEventLog(SystemLogTypeEnum.USER_UPDATE)
     @PutMapping
     public Result<Void> updateUser(@RequestBody UserUpdateRequestDTO requestParam) {
         userService.updateUser(requestParam);
