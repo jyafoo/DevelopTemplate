@@ -16,8 +16,8 @@ public interface SystemEventLogService {
      * 保存用户后台管理操作日志,将日志信息持久化
      * <p>
      *
-     * @param eventLogEntity 事件日志实体，包含日志的相关信息
+     * @param eventLogDO 事件日志实体，包含日志的相关信息
      */
-    void saveLog(EventLogDO eventLogEntity);
+    void saveLog(EventLogDO eventLogDO);
 
 }

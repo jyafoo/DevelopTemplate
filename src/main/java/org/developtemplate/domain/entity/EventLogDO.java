@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * 系统事件日志
+ *
  * @author jiafu.li
  * @date 2024/10/29
  */

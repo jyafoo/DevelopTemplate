@@ -24,11 +24,13 @@ public class SystemEventLogServiceImpl extends ServiceImpl<SystemEventLogMapper,
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void saveLog(EventLogDO eventLogEntity) {
-        save(eventLogEntity);
-        if (CollectionUtils.isNotEmpty(eventLogEntity.getItemList())) {
-            for(EventLogItemDO item : eventLogEntity.getItemList()){
-                item.setEventLogId(eventLogEntity.getId());
+    public void saveLog(EventLogDO eventLogDO) {
+        // 保存日志基本信息
+        save(eventLogDO);
+        // 保存日志详情条目信息
+        if (CollectionUtils.isNotEmpty(eventLogDO.getItemList())) {
+            for(EventLogItemDO item : eventLogDO.getItemList()){
+                item.setEventLogId(eventLogDO.getId());
                 systemEventLogItemMapper.insert(item);
             }
         }

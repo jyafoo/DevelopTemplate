@@ -35,9 +35,8 @@ public class UserController {
      * @param userRegisterRequestDTO 用户注册请求参数
      */
     @PostMapping("/register")
-    public Result<Void> registerUser(@RequestBody UserRegisterRequestDTO userRegisterRequestDTO){
+    public void registerUser(@RequestBody UserRegisterRequestDTO userRegisterRequestDTO){
         userService.registerUser(userRegisterRequestDTO);
-        return Results.success();
     }
 
     /**
@@ -46,8 +45,8 @@ public class UserController {
      * @param username 用户名
      */
     @GetMapping("/check")
-    public Result<Boolean> checkUsername(@RequestParam("username") String username) {
-        return Results.success(userService.checkUsername(username));
+    public Boolean checkUsername(@RequestParam("username") String username) {
+        return userService.checkUsername(username);
     }
 
     /**
@@ -57,8 +56,8 @@ public class UserController {
      */
     @SystemEventLog(SystemLogTypeEnum.DEFAULT)
     @PostMapping("/login")
-    public Result<UserLoginResponseDTO> loginUser(@RequestBody UserLoginRequestDTO userLoginRequestDTO){
-        return Results.success(userService.loginUser(userLoginRequestDTO));
+    public UserLoginResponseDTO loginUser(@RequestBody UserLoginRequestDTO userLoginRequestDTO){
+        return userService.loginUser(userLoginRequestDTO);
     }
 
     /**
@@ -66,8 +65,8 @@ public class UserController {
      * @param username 用户名
      */
     @GetMapping("/{username}")
-    public Result<UserInfoResponseDTO> getUserByUsername(@PathVariable("username") String username) {
-        return Results.success(userService.getUserByUsername(username));
+    public UserInfoResponseDTO getUserByUsername(@PathVariable("username") String username) {
+        return userService.getUserByUsername(username);
     }
 
     /**
@@ -76,26 +75,24 @@ public class UserController {
      */
     @SystemEventLog(SystemLogTypeEnum.USER_UPDATE)
     @PutMapping
-    public Result<Void> updateUser(@RequestBody UserUpdateRequestDTO requestParam) {
+    public void updateUser(@RequestBody UserUpdateRequestDTO requestParam) {
         userService.updateUser(requestParam);
-        return Results.success();
     }
 
     /**
      * 检查用户是否登录
      */
     @GetMapping("/check-login")
-    public Result<Boolean> checkLogin(@RequestParam("username") String username, @RequestParam("token") String token) {
-        return Results.success(userService.checkLogin(username, token));
+    public Boolean checkLogin(@RequestParam("username") String username, @RequestParam("token") String token) {
+        return userService.checkLogin(username, token);
     }
 
     /**
      * 用户退出登录
      */
     @DeleteMapping("/logout")
-    public Result<Void> logout(@RequestParam("username") String username, @RequestParam("token") String token) {
+    public void logout(@RequestParam("username") String username, @RequestParam("token") String token) {
         userService.logoutUser(username, token);
-        return Results.success();
     }
 
 }
